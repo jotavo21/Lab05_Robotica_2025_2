@@ -3,81 +3,13 @@
 ## Presentado por Juan Esteban Otavo García y Ian Saonni Rodríguez Pulido
 
 # Cinemàtica Directa 
-A continuaciòn se presenta el código en MATLAB que se usó para determinar la cinemática directa del robot Pincher
+
+Para la construcción de la cinemática directa del robot, se aprovecharon los modelos 3D y los planos del robot Phantom Pincher proveídos por el monitor para la obtención de las longitudes de los eslabones.
+
+A continuaciòn se presenta el código en MATLAB que se usó para determinar la cinemática directa del robot Pincher y definir la tabla de parametros de Denavit Hatenberg.
 ```
-function [theta_0, theta_1, theta_2, theta_3, theta_4] = inverse_kinematics(X, Y, Z, phi)
-    
-    theta_4 = phi;
-    
-    theta_0=atan2(Y,X);
-    
-    Xa=sqrt(X^2+Y^2);
-    
-    % Longitudes de los eslabones
-    link0 = 0.072;
-    link1 = 0.125;
-    link2 = 0.125;
-    link3 = 0.125;
 
-    % Convertir phi a radianes
-    phi = deg2rad(phi);
-    
-    Za=Z-link0;
-
-    % Cálculo de nx y ny
-    nx = Xa - link3 * cos(phi);
-    nz = Za - link3 * sin(phi);
-
-    % Cálculo de theta2
-    delta = nx^2 + nz^2;
-    c2 = (delta - link1^2 - link2^2) / (2 * link1 * link2);
-
-    s2 = sqrt(1 - c2^2);
-
-    if imag(s2) ~= 0
-        error('El punto dado no se puede alcanzar, intenta con otro valor.');
-    end
-
-    theta_2 = atan2(s2, c2);
-
-    % Cálculo de theta1
-    s1 = ((link1 + link2 * c2) * nz - link2 * s2 * nx) / delta;
-    c1 = ((link1 + link2 * c2) * nx + link2 * s2 * nz) / delta;
-    theta_1 = atan2(s1, c1);
-
-    % Cálculo de theta3
-    theta_3 = phi - theta_1 - theta_2;
-
-    % Convertir los ángulos a grados
-    theta_0 = rad2deg(theta_0);
-    theta_1 = rad2deg(theta_1);
-    theta_2 = rad2deg(theta_2);
-    theta_3 = rad2deg(theta_3);
-    theta_4 = theta_4;
-end
-
-clc
-clear
-
-% Definir las coordenadas y el ángulo phi
-X = 0.2;
-Y = 0.2;
-Z = 0.2;
-phi = 45;
-
-% Llamar a la función
-[theta_0, theta_1, theta_2, theta_3, theta_4] = inverse_kinematics(X, Y, Z, phi);
-
-% Mostrar los resultados
-fprintf('Theta 0: %.2f grados\n', theta_0);
-fprintf('Theta 1: %.2f grados\n', theta_1);
-fprintf('Theta 2: %.2f grados\n', theta_2);
-fprintf('Theta 3: %.2f grados\n', theta_3);
-fprintf('Theta 4: %.2f grados\n', theta_4);
-
-
-
-% Definir los parámetros DH usando Robotics Toolbox
+% Definir los parámetros DH
 
 L1 = Link('d', 0.072,  'a', 0,   'alpha', -pi/2, 'offset', 0);
 L2 = Link('d', 0,   'a', 0.125, 'alpha', 0,     'offset', -pi/2);
@@ -85,17 +17,19 @@ L3 = Link('d', 0,   'a', 0.125, 'alpha', 0,     'offset', 0);
 L4 = Link('d', 0,   'a', 0.125,   'alpha', 0, 'offset', 0);
 L5 = Link('d', 0,   'a', 0.125,   'alpha', 0, 'offset', 0);
 
-% Crear el modelo del robot Phantom X
+% Crear el modelo del robot
 PhantomX = SerialLink([L1 L2 L3 L4 L5], 'name', 'PhantomX');
 
 % Mostrar el robot en la posición inicial
-q = [theta_0, theta_1, theta_2, theta_3, theta_4]; % Ángulos en radianes
+q = [0, 0, 0, 0, 0];
 PhantomX.plot(q);
 T = PhantomX.fkine(q);
 disp('Nueva posición del efector final:');
-disp(T.t);
 
 ```
+
+
+
 # Cinemàtica inversa
 A continuaciòn se presenta el código en MATLAB que se usó para determinar la cinemática inversa del robot Pincher
 

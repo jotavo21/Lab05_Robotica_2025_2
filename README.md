@@ -27,7 +27,20 @@ T = PhantomX.fkine(q);
 disp('Nueva posición del efector final:');
 
 ```
+La tabla de parámetros DH obtenida es la siguiente:
 
+| j  | theta | d     | a     | alpha  | offset |
+|----|-------|-------|-------|--------|--------|
+| 1  | q1    | 0.072 | 0     | -1.571 | 0      |
+| 2  | q2    | 0     | 0.125 | 0      | -1.571 |
+| 3  | q3    | 0     | 0.125 | 0      | 0      |
+| 4  | q4    | 0     | 0.125 | 0      | 0      |
+| 5  | q5    | 0     | 0.125 | 0      | 0      |
+
+Utilizando la función PhantomX.plot(q) se puede observar un gráfico del robot acorde a los parámetros DH definidos y a los ángulos escogidos para cada articulación en el vector q. El gráfico del robot en la posición de home se observa a continuación:
+
+
+Finalmente, aprovechando la tabla de parametros, se utiliza PhantomX.fikne(q) para obtener la cinemática directa, es decir, la matriz MTH correspondiente a la posición y orientación del efector final, la cual se muestra a continuación:
 
 
 # Cinemàtica inversa

@@ -40,6 +40,7 @@ La tabla de parámetros DH obtenida es la siguiente:
 Utilizando la función PhantomX.plot(q) se puede observar un gráfico del robot acorde a los parámetros DH definidos y a los ángulos escogidos para cada articulación en el vector q. El gráfico del robot en la posición de home se observa a continuación:
 
 ![image](https://github.com/jotavo21/Lab05_Robotica_2025_2/blob/main/imagenes/pincher.png)
+
 Finalmente, aprovechando la tabla de parametros, se utiliza PhantomX.fikne(q) para obtener la cinemática directa, es decir, la matriz MTH correspondiente a la posición y orientación del efector final, la cual se muestra a continuación:
 
 ![image](https://github.com/jotavo21/Lab05_Robotica_2025_2/blob/main/imagenes/MTH.png)

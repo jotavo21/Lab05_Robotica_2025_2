@@ -191,4 +191,3 @@ function [ theta_1, theta_2, theta_3, theta_4] = ikine(X, Y, Z, phi)
 end
 
 ```
-## Cuadro comparativo entre manipulador Motoman MH6 y manipulador IRB140.

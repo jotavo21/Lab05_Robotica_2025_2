@@ -2,7 +2,8 @@
 
 ## Presentado por Juan Esteban Otavo García y Ian Saonni Rodríguez Pulido
 
-#Cinemàtica Directa 
+# Cinemàtica Directa 
+A continuaciòn se presenta el código en MATLAB que se usó para determinar la cinemática directa del robot Pincher
 ```
 function [theta_0, theta_1, theta_2, theta_3, theta_4] = inverse_kinematics(X, Y, Z, phi)
     
@@ -95,7 +96,9 @@ disp('Nueva posición del efector final:');
 disp(T.t);
 
 ```
-#Cinemàtica inversa
+# Cinemàtica inversa
+A continuaciòn se presenta el código en MATLAB que se usó para determinar la cinemática inversa del robot Pincher
+
 ```
 clc
 clear
